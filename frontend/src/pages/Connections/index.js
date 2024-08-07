@@ -317,19 +317,13 @@ const Connections = () => {
       <MainHeader>
         <Title>{i18n.t("connections.title")}</Title>
         <MainHeaderButtonsWrapper>
-          <Can
-            role={user.profile}
-            perform="connections-page:addConnection"
-            yes={() => (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleOpenWhatsAppModal}
-              >
-                {i18n.t("connections.buttons.add")}
-              </Button>
-            )}
-          />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenWhatsAppModal}
+          >
+            {i18n.t("connections.buttons.add")}
+          </Button>
         </MainHeaderButtonsWrapper>
       </MainHeader>
       <Paper className={classes.mainPaper} variant="outlined">
@@ -342,15 +336,9 @@ const Connections = () => {
               <TableCell align="center">
                 {i18n.t("connections.table.status")}
               </TableCell>
-              <Can
-                role={user.profile}
-                perform="connections-page:actionButtons"
-                yes={() => (
-                  <TableCell align="center">
-                    {i18n.t("connections.table.session")}
-                  </TableCell>
-                )}
-              />
+              <TableCell align="center">
+                {i18n.t("connections.table.session")}
+              </TableCell>
               <TableCell align="center">
                 {i18n.t("connections.table.lastUpdate")}
               </TableCell>
@@ -380,15 +368,9 @@ const Connections = () => {
                       <TableCell align="center">
                         {renderStatusToolTips(whatsApp)}
                       </TableCell>
-                      <Can
-                        role={user.profile}
-                        perform="connections-page:actionButtons"
-                        yes={() => (
-                          <TableCell align="center">
-                            {renderActionButtons(whatsApp)}
-                          </TableCell>
-                        )}
-                      />
+                      <TableCell align="center">
+                        {renderActionButtons(whatsApp)}
+                      </TableCell>
                       <TableCell align="center">
                         {format(parseISO(whatsApp.updatedAt), "dd/MM/yy HH:mm")}
                       </TableCell>
