@@ -374,24 +374,26 @@ const MainListItems = (props) => {
       />
 
       <Can
-        role={user.profile && user.super}
+        role={user.profile}
         perform="drawer-admin-items:view"
         yes={() => (
           <>
             <Divider />
-            <ListSubheader
-              hidden={collapsed}
-              style={{
-                position: "relative",
-                fontSize: "17px",
-                textAlign: "left",
-                paddingLeft: 20,
-              }}
-              inset
-              color="inherit"
-            >
-              {i18n.t("mainDrawer.listItems.administration")}
-            </ListSubheader>
+            {user.super && (
+              <ListSubheader
+                hidden={collapsed}
+                style={{
+                  position: "relative",
+                  fontSize: "17px",
+                  textAlign: "left",
+                  paddingLeft: 20,
+                }}
+                inset
+                color="inherit"
+              >
+                {i18n.t("mainDrawer.listItems.administration")}
+              </ListSubheader>
+            )}
 
             {showCampaigns && (
               <>
@@ -482,6 +484,7 @@ const MainListItems = (props) => {
               primary={i18n.t("mainDrawer.listItems.users")}
               icon={<PeopleAltOutlinedIcon />}
             />
+
             {showExternalApi && user.super && (
               <>
                 <ListItemLink
