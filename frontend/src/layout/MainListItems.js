@@ -374,7 +374,7 @@ const MainListItems = (props) => {
       />
 
       <Can
-        role={user.profile}
+        role={user.profile && user.super}
         perform="drawer-admin-items:view"
         yes={() => (
           <>
@@ -453,7 +453,7 @@ const MainListItems = (props) => {
                 icon={<AnnouncementIcon />}
               />
             )}
-            {showOpenAi && (
+            {showOpenAi && user.super && (
               <ListItemLink
                 to="/prompts"
                 primary={i18n.t("mainDrawer.listItems.prompts")}
@@ -461,57 +461,46 @@ const MainListItems = (props) => {
               />
             )}
 
-            {showIntegrations && (
+            {showIntegrations && user.super && (
               <ListItemLink
                 to="/queue-integration"
                 primary={i18n.t("mainDrawer.listItems.queueIntegration")}
                 icon={<DeviceHubOutlined />}
               />
             )}
-            {/* <ListItemLink
-              to="/connections"
-              primary={i18n.t("mainDrawer.listItems.connections")}
-              icon={
-                <Badge badgeContent={connectionWarning ? "!" : 0} color="error">
-                  <SyncAltIcon />
-                </Badge>
-              }
-            /> */}
-            <ListItemLink
-              to="/files"
-              primary={i18n.t("mainDrawer.listItems.files")}
-              icon={<AttachFile />}
-            />
-            {/* <ListItemLink
-              to="/queues"
-              primary={i18n.t("mainDrawer.listItems.queues")}
-              icon={<AccountTreeOutlinedIcon />}
-            /> */}
+
+            {user.super && (
+              <ListItemLink
+                to="/files"
+                primary={i18n.t("mainDrawer.listItems.files")}
+                icon={<AttachFile />}
+              />
+            )}
+
             <ListItemLink
               to="/users"
               primary={i18n.t("mainDrawer.listItems.users")}
               icon={<PeopleAltOutlinedIcon />}
             />
-            {showExternalApi && (
+            {showExternalApi && user.super && (
               <>
                 <ListItemLink
                   to="/messages-api"
                   primary={i18n.t("mainDrawer.listItems.messagesAPI")}
                   icon={<CodeRoundedIcon />}
                 />
+                <ListItemLink
+                  to="/financeiro"
+                  primary={i18n.t("mainDrawer.listItems.financeiro")}
+                  icon={<LocalAtmIcon />}
+                />
+                <ListItemLink
+                  to="/settings"
+                  primary={i18n.t("mainDrawer.listItems.settings")}
+                  icon={<SettingsOutlinedIcon />}
+                />
               </>
             )}
-            <ListItemLink
-              to="/financeiro"
-              primary={i18n.t("mainDrawer.listItems.financeiro")}
-              icon={<LocalAtmIcon />}
-            />
-
-            <ListItemLink
-              to="/settings"
-              primary={i18n.t("mainDrawer.listItems.settings")}
-              icon={<SettingsOutlinedIcon />}
-            />
 
             {!collapsed && (
               <React.Fragment>
@@ -530,7 +519,7 @@ const MainListItems = (props) => {
                     fontWeight: "bold",
                   }}
                 >
-                  {`6.0.0`}
+                  {`1.0.0`}
                 </Typography>
               </React.Fragment>
             )}
