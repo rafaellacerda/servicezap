@@ -395,7 +395,7 @@ const MainListItems = (props) => {
               </ListSubheader>
             )}
 
-            {showCampaigns && (
+            {showCampaigns && user.super && (
               <>
                 <ListItem
                   button
