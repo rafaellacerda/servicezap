@@ -29,6 +29,11 @@ import MessageIcon from "@material-ui/icons/Message";
 import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
 import TimerIcon from "@material-ui/icons/Timer";
 
+import background from "../../assets/background.png";
+import background1 from "../../assets/atendimento.png";
+import background2 from "../../assets/aguardando.png";
+import background3 from "../../assets/finalizado.png";
+
 import { makeStyles } from "@material-ui/core/styles";
 import { grey, blue } from "@material-ui/core/colors";
 import { toast } from "react-toastify";
@@ -142,6 +147,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card2: {
     padding: theme.spacing(2),
@@ -158,6 +164,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card3: {
     padding: theme.spacing(2),
@@ -173,6 +180,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card4: {
     padding: theme.spacing(2),
@@ -188,6 +196,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card5: {
     padding: theme.spacing(2),
@@ -203,6 +212,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card6: {
     padding: theme.spacing(2),
@@ -218,6 +228,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card7: {
     padding: theme.spacing(2),
@@ -233,6 +244,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card8: {
     padding: theme.spacing(2),
@@ -248,6 +260,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   card9: {
     padding: theme.spacing(2),
@@ -263,6 +276,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#eee",
     borderRadius: 15,
     justifyContent: "flex-end",
+    position: "relative",
   },
   fixedHeightPaper2: {
     padding: theme.spacing(2),
@@ -270,6 +284,22 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
     flexDirection: "column",
     backgroundColor: theme.palette.light.main,
+  },
+  backgroundCard: {
+    position: "absolute",
+    top: "-35px",
+    right: "-123px",
+    width: "265px",
+    opacity: 0.2,
+    transform: "rotateY(180deg)",
+  },
+  backgroundCardTop: {
+    position: "absolute",
+    top: "-15px",
+    right: "7px",
+    width: "200px",
+    opacity: 0.2,
+    position: "absolute",
   },
 }));
 
@@ -473,6 +503,10 @@ const Dashboard = () => {
             >
               <Grid container spacing={3}>
                 <Grid item xs={8}>
+                  <img
+                    src={background1}
+                    className={classes.backgroundCardTop}
+                  />
                   <Typography component="h3" variant="h6" paragraph>
                     Andamento
                   </Typography>
@@ -503,6 +537,10 @@ const Dashboard = () => {
             >
               <Grid container spacing={3}>
                 <Grid item xs={8}>
+                  <img
+                    src={background2}
+                    className={classes.backgroundCardTop}
+                  />
                   <Typography component="h3" variant="h6" paragraph>
                     Aguardando
                   </Typography>
@@ -533,6 +571,10 @@ const Dashboard = () => {
             >
               <Grid container spacing={3}>
                 <Grid item xs={8}>
+                  <img
+                    src={background3}
+                    className={classes.backgroundCardTop}
+                  />
                   <Typography component="h3" variant="h6" paragraph>
                     Finalizados
                   </Typography>
@@ -563,6 +605,7 @@ const Dashboard = () => {
             >
               <Grid container spacing={3}>
                 <Grid item xs={8}>
+                  <img src={background} className={classes.backgroundCard} />
                   <Typography component="h3" variant="h6" paragraph>
                     Novos Contatos
                   </Typography>
@@ -593,6 +636,7 @@ const Dashboard = () => {
             >
               <Grid container spacing={3}>
                 <Grid item xs={8}>
+                  <img src={background} className={classes.backgroundCard} />
                   <Typography component="h3" variant="h6" paragraph>
                     {/* T.M. de Conversa */}
                     Em Conversa
@@ -624,6 +668,7 @@ const Dashboard = () => {
             >
               <Grid container spacing={3}>
                 <Grid item xs={8}>
+                  <img src={background} className={classes.backgroundCard} />
                   <Typography component="h3" variant="h6" paragraph>
                     {/* T.M. de Espera */}
                     Em Espera
