@@ -7,8 +7,9 @@ import {
   Title,
   Tooltip,
   Legend,
+  ArcElement,
 } from "chart.js";
-import { Bar } from "react-chartjs-2";
+import { Doughnut } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import brLocale from "date-fns/locale/pt-BR";
@@ -34,6 +35,7 @@ ChartJS.register(
   CategoryScale,
   LinearScale,
   BarElement,
+  ArcElement,
   Title,
   Tooltip,
   Legend,
@@ -80,6 +82,12 @@ export const ChatsUser = () => {
     handleGetTicketsInformation();
   }, []);
 
+  const getColor = () => {
+    // const randomColor = Math.floor(Math.random() * 16777215).toString(16);
+    // return "#" + randomColor;
+    return "#9C8552";
+  };
+
   const dataCharts = {
     labels:
       ticketsData &&
@@ -92,7 +100,9 @@ export const ChatsUser = () => {
           ticketsData?.data.map((item, index) => {
             return item.quantidade;
           }),
-        backgroundColor: "#2DDD7F",
+        backgroundColor: ticketsData?.data.map((item, index) => {
+          return getColor();
+        }),
       },
     ],
   };
@@ -158,7 +168,7 @@ export const ChatsUser = () => {
           Filtrar
         </Button>
       </Stack>
-      <Bar
+      <Doughnut
         options={options}
         data={dataCharts}
         style={{ maxWidth: "100%", maxHeight: "280px" }}

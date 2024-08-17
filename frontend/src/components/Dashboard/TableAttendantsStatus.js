@@ -30,8 +30,16 @@ const useStyles = makeStyles((theme) => ({
   pointer: {
     cursor: "pointer",
   },
+  title: {
+    color: theme.palette.textPrimary,
+    marginTop: 10,
+    marginBottom: 0,
+    textAlign: "center",
+  },
   main: {
     backgroundColor: theme.palette.light.main,
+    width: "90%",
+    minHeight: "345px",
   },
 }));
 
@@ -44,19 +52,21 @@ export default function TableAttendantsStatus(props) {
   const { loading, attendants } = props;
   const classes = useStyles();
 
+  console.log("att", attendants);
+
   function renderList() {
     return attendants.map((a, k) => (
       <TableRow key={k}>
-        <TableCell>{a.name}</TableCell>
-        <TableCell
+        <TableCell style={{ border: "none" }}>{a.name}</TableCell>
+        {/* <TableCell
           align="center"
           title="1 - Insatisfeito, 2 - Satisfeito, 3 - Muito Satisfeito"
           className={classes.pointer}
         >
           <RatingBox rating={a.rating} />
         </TableCell>
-        <TableCell align="center">{formatTime(a.avgSupportTime, 2)}</TableCell>
-        <TableCell align="center">
+        <TableCell align="center">{formatTime(a.avgSupportTime, 2)}</TableCell> */}
+        <TableCell align="center" style={{ border: "none" }}>
           {a.online ? (
             <CheckCircleIcon className={classes.on} />
           ) : (
@@ -76,13 +86,14 @@ export default function TableAttendantsStatus(props) {
 
   return !loading ? (
     <TableContainer component={Paper} className={classes.main}>
+      <h2 className={classes.title}>Atendentes</h2>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Nome</TableCell>
-            <TableCell align="center">Avaliações</TableCell>
-            <TableCell align="center">T.M. de Atendimento</TableCell>
-            <TableCell align="center">Status (Atual)</TableCell>
+            {/* <TableCell align="center">Avaliações</TableCell>
+            <TableCell align="center">T.M. de Atendimento</TableCell> */}
+            <TableCell align="center">Online</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

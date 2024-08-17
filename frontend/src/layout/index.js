@@ -55,12 +55,25 @@ const useStyles = makeStyles((theme) => ({
     "& .MuiButton-outlinedPrimary": {
       color: theme.mode === "light" ? "#FFF" : "#FFF",
       //backgroundColor: theme.mode === 'light' ? '#293A47' : '#293A47',
-      backgroundColor:
-        theme.mode === "light" ? theme.palette.primary.main : "#1c1c1c",
+      // backgroundColor:
+      //   theme.mode === "light" ? theme.palette.primary.main : "#1c1c1c",
+      backgroundColor: theme.palette.barraSuperior,
       //border: theme.mode === 'light' ? '1px solid rgba(0 124 102)' : '1px solid rgba(255, 255, 255, 0.5)',
     },
     "& .MuiTab-textColorPrimary.Mui-selected": {
       color: theme.mode === "light" ? "Primary" : "#FFF",
+    },
+    "& .MuiToolbar-dense": {
+      height: "62px",
+    },
+    "& .MuiPaper-elevation4": {
+      boxShadow: "none",
+    },
+    "& .MuiIconButton-root": {
+      color: theme.palette.dark.main,
+    },
+    "& .MuiIconButton-edgeStart": {
+      color: `${theme.palette.dark.main} !important`,
     },
   },
   avatar: {
@@ -70,17 +83,25 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 24, // keep right padding when drawer closed
     color: theme.palette.dark.main,
     background: theme.palette.barraSuperior,
+    color: "#000",
+    "& .MuiSvgIcon-root": {
+      color: `${theme.palette.dark.main} !important`,
+    },
   },
   toolbarIcon: {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
     padding: "0 8px",
-    minHeight: "48px",
+    minHeight: "62px",
     [theme.breakpoints.down("sm")]: {
-      height: "48px",
+      height: "62px",
     },
-    backgroundColor: theme.palette.headerMenu,
+    // backgroundColor: theme.palette.headerMenu,
+    backgroundColor: theme.palette.barraSuperior,
+    // "& .MuiSvgIcon-root": {
+    // color: "#000 !important",
+    // },
   },
   appBar: {
     zIndex: theme.zIndex.drawer + 1,
@@ -110,7 +131,7 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     fontSize: 14,
-    color: "white",
+    color: theme.palette.dark.main,
   },
   drawerPaper: {
     position: "relative",
@@ -124,6 +145,7 @@ const useStyles = makeStyles((theme) => ({
       width: "100%",
     },
     ...theme.scrollbarStylesSoft,
+    border: "none",
   },
   drawerPaperClose: {
     overflowX: "hidden",
@@ -140,7 +162,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBarSpacer: {
-    minHeight: "48px",
+    minHeight: "62px",
   },
   content: {
     flex: 1,
@@ -161,7 +183,8 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(1),
     overflowY: "scroll",
     ...theme.scrollbarStyles,
-    backgroundColor: theme.palette.tabHeaderBackground,
+    // backgroundColor: theme.palette.tabHeaderBackground, // cor menu
+    backgroundColor: theme.palette.barraSuperior,
   },
   NotificationsPopOver: {
     // color: theme.barraSuperior.secondary.main,

@@ -73,7 +73,13 @@ function ListItemLink(props) {
 
   return (
     <li>
-      <ListItem button dense component={renderLink} className={className}>
+      <ListItem
+        button
+        dense
+        component={renderLink}
+        className={className}
+        style={{ paddingTop: 10, paddingBottom: 10 }}
+      >
         {icon ? <ListItemIcon>{icon}</ListItemIcon> : null}
         <ListItemText primary={primary} />
       </ListItem>
@@ -378,7 +384,7 @@ const MainListItems = (props) => {
         perform="drawer-admin-items:view"
         yes={() => (
           <>
-            <Divider />
+            {/* <Divider /> */}
             {user.super && (
               <ListSubheader
                 hidden={collapsed}
@@ -386,7 +392,7 @@ const MainListItems = (props) => {
                   position: "relative",
                   fontSize: "17px",
                   textAlign: "left",
-                  paddingLeft: 20,
+                  paddingLeft: 15,
                 }}
                 inset
                 color="inherit"
@@ -479,11 +485,13 @@ const MainListItems = (props) => {
               />
             )}
 
-            <ListItemLink
-              to="/users"
-              primary={i18n.t("mainDrawer.listItems.users")}
-              icon={<PeopleAltOutlinedIcon />}
-            />
+            {user.super && (
+              <ListItemLink
+                to="/users"
+                primary={i18n.t("mainDrawer.listItems.users")}
+                icon={<PeopleAltOutlinedIcon />}
+              />
+            )}
 
             {showExternalApi && user.super && (
               <>

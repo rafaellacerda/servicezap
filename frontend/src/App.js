@@ -53,9 +53,9 @@ const App = () => {
       },
       palette: {
         type: mode,
-        primary: { main: mode === "light" ? "#293A47" : "#FFFFFF" },
-        textPrimary: mode === "light" ? "#293A47" : "#FFFFFF",
-        borderPrimary: mode === "light" ? "#293A47" : "#FFFFFF",
+        primary: { main: mode === "light" ? "#9C8552" : "#FFFFFF" },
+        textPrimary: mode === "light" ? "#9C8552" : "#FFFFFF",
+        borderPrimary: mode === "light" ? "#9C8552" : "#FFFFFF",
         dark: { main: mode === "light" ? "#333333" : "#F3F3F3" },
         light: { main: mode === "light" ? "#F3F3F3" : "#181b23" },
         tabHeaderBackground: mode === "light" ? "#EEE" : "#14161d",
@@ -76,10 +76,7 @@ const App = () => {
         total: mode === "light" ? "#fff" : "#222",
         messageIcons: mode === "light" ? "grey" : "#F3F3F3",
         inputBackground: mode === "light" ? "#FFFFFF" : "#fff",
-        barraSuperior:
-          mode === "light"
-            ? "linear-gradient(to right, #293A47, #293A47 , #293A47)"
-            : "#14161d", // Header
+        barraSuperior: mode === "light" ? "#fafafa" : "#14161d", // Header
         boxticket: mode === "light" ? "#EEE" : "#181b23",
         campaigntab: mode === "light" ? "#ededed" : "#181b23",
         mediainput: mode === "light" ? "#ededed" : "#1c1c1c",

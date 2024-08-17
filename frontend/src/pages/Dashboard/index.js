@@ -102,6 +102,9 @@ const useStyles = makeStyles((theme) => ({
   container: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
+
+    display: "flex",
+    maxWidth: "100%",
   },
   fixedHeightPaper: {
     padding: theme.spacing(2),
@@ -129,7 +132,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: "palette",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
@@ -137,13 +140,15 @@ const useStyles = makeStyles((theme) => ({
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card2: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: "palette",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
@@ -151,97 +156,113 @@ const useStyles = makeStyles((theme) => ({
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card3: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card4: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card5: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card6: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card7: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card8: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   card9: {
     padding: theme.spacing(2),
     display: "flex",
     overflow: "auto",
     flexDirection: "column",
-    height: "100%",
+    height: "160px",
     //backgroundColor: theme.palette.primary.main,
     backgroundColor:
       theme.palette.type === "dark"
         ? theme.palette.boxticket
         : theme.palette.primary.main,
     color: "#eee",
+    borderRadius: 15,
+    justifyContent: "flex-end",
   },
   fixedHeightPaper2: {
     padding: theme.spacing(2),
@@ -437,9 +458,14 @@ const Dashboard = () => {
   return (
     <div>
       <Container maxWidth="lg" className={classes.container}>
+        <Grid item xs={4}>
+          {attendants.length ? (
+            <TableAttendantsStatus attendants={attendants} loading={loading} />
+          ) : null}
+        </Grid>
         <Grid container spacing={3} justifyContent="flex-end">
           {/* EM ATENDIMENTO */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={4}>
             <Paper
               className={classes.card1}
               style={{ overflow: "hidden" }}
@@ -448,7 +474,7 @@ const Dashboard = () => {
               <Grid container spacing={3}>
                 <Grid item xs={8}>
                   <Typography component="h3" variant="h6" paragraph>
-                    Em Conversa
+                    Andamento
                   </Typography>
                   <Grid item>
                     <Typography component="h1" variant="h4">
@@ -456,20 +482,20 @@ const Dashboard = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={2}>
+                {/* <Grid item xs={2}>
                   <CallIcon
                     style={{
                       fontSize: 100,
                       color: "#FFFFFF",
                     }}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Paper>
           </Grid>
 
           {/* AGUARDANDO */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={4}>
             <Paper
               className={classes.card2}
               style={{ overflow: "hidden" }}
@@ -486,62 +512,20 @@ const Dashboard = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                   <HourglassEmptyIcon
                     style={{
                       fontSize: 100,
                       color: "#FFFFFF",
                     }}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Paper>
           </Grid>
 
-          {/* ATENDENTES ATIVOS */}
-          {/*<Grid item xs={12} sm={6} md={4}>
-            <Paper
-              className={classes.card6}
-              style={{ overflow: "hidden" }}
-              elevation={6}
-            >
-              <Grid container spacing={3}>
-                <Grid item xs={8}>
-                  <Typography
-                    component="h3"
-                    variant="h6"
-                    paragraph
-                  >
-                    Conversas Ativas
-                  </Typography>
-                  <Grid item>
-                    <Typography
-                      component="h1"
-                      variant="h4"
-                    >
-                      {GetUsers()}
-                      <span
-                        style={{ color: "#805753" }}
-                      >
-                        /{attendants.length}
-                      </span>
-                    </Typography>
-                  </Grid>
-                </Grid>
-                <Grid item xs={4}>
-                  <RecordVoiceOverIcon
-                    style={{
-                      fontSize: 100,
-                      color: "#805753",
-                    }}
-                  />
-                </Grid>
-              </Grid>
-            </Paper>
-</Grid>*/}
-
           {/* FINALIZADOS */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={4}>
             <Paper
               className={classes.card3}
               style={{ overflow: "hidden" }}
@@ -558,20 +542,20 @@ const Dashboard = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                   <CheckCircleIcon
                     style={{
                       fontSize: 100,
                       color: "#FFFFFF",
                     }}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Paper>
           </Grid>
 
           {/* NOVOS CONTATOS */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={4}>
             <Paper
               className={classes.card4}
               style={{ overflow: "hidden" }}
@@ -588,20 +572,20 @@ const Dashboard = () => {
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                   <GroupAddIcon
                     style={{
                       fontSize: 100,
                       color: "#FFFFFF",
                     }}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Paper>
           </Grid>
 
           {/* T.M. DE ATENDIMENTO */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={4}>
             <Paper
               className={classes.card8}
               style={{ overflow: "hidden" }}
@@ -610,28 +594,29 @@ const Dashboard = () => {
               <Grid container spacing={3}>
                 <Grid item xs={8}>
                   <Typography component="h3" variant="h6" paragraph>
-                    T.M. de Conversa
+                    {/* T.M. de Conversa */}
+                    Em Conversa
                   </Typography>
-                  <Grid item>
+                  <Grid item style={{ width: 200 }}>
                     <Typography component="h1" variant="h4">
                       {formatTime(counters.avgSupportTime)}
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                   <AccessAlarmIcon
                     style={{
                       fontSize: 100,
                       color: "#FFFFFF",
                     }}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Paper>
           </Grid>
 
           {/* T.M. DE ESPERA */}
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={6} sm={3} md={4}>
             <Paper
               className={classes.card9}
               style={{ overflow: "hidden" }}
@@ -640,28 +625,29 @@ const Dashboard = () => {
               <Grid container spacing={3}>
                 <Grid item xs={8}>
                   <Typography component="h3" variant="h6" paragraph>
-                    T.M. de Espera
+                    {/* T.M. de Espera */}
+                    Em Espera
                   </Typography>
-                  <Grid item>
+                  <Grid item style={{ width: 200 }}>
                     <Typography component="h1" variant="h4">
                       {formatTime(counters.avgWaitTime)}
                     </Typography>
                   </Grid>
                 </Grid>
-                <Grid item xs={4}>
+                {/* <Grid item xs={4}>
                   <TimerIcon
                     style={{
                       fontSize: 100,
                       color: "#FFFFFF",
                     }}
                   />
-                </Grid>
+                </Grid> */}
               </Grid>
             </Paper>
           </Grid>
 
           {/* FILTROS */}
-          <Grid item xs={12} sm={6} md={4}>
+          {/* <Grid item xs={12} sm={6} md={4}>
             <FormControl className={classes.selectContainer}>
               <InputLabel id="period-selector-label">Tipo de Filtro</InputLabel>
               <Select
@@ -674,12 +660,12 @@ const Dashboard = () => {
               </Select>
               <FormHelperText>Selecione o período desejado</FormHelperText>
             </FormControl>
-          </Grid>
+          </Grid> */}
 
-          {renderFilters()}
+          {/* {renderFilters()} */}
 
           {/* BOTAO FILTRAR */}
-          <Grid item xs={12} className={classes.alignRight}>
+          {/* <Grid item xs={12} className={classes.alignRight}>
             <ButtonWithSpinner
               loading={loading}
               onClick={() => fetchData()}
@@ -688,27 +674,27 @@ const Dashboard = () => {
             >
               Filtrar
             </ButtonWithSpinner>
-          </Grid>
+          </Grid> */}
 
           {/* USUARIOS ONLINE */}
-          <Grid item xs={12}>
+          {/* <Grid item xs={12}>
             {attendants.length ? (
               <TableAttendantsStatus
                 attendants={attendants}
                 loading={loading}
               />
             ) : null}
-          </Grid>
+          </Grid> */}
 
           {/* TOTAL DE ATENDIMENTOS POR USUARIO */}
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Paper className={classes.fixedHeightPaper2}>
               <ChatsUser />
             </Paper>
           </Grid>
 
           {/* TOTAL DE ATENDIMENTOS */}
-          <Grid item xs={12}>
+          <Grid item xs={6}>
             <Paper className={classes.fixedHeightPaper2}>
               <ChartsDate />
             </Paper>
