@@ -9,7 +9,7 @@ import {
   Legend,
   ArcElement,
 } from "chart.js";
-import { Doughnut } from "react-chartjs-2";
+import { Bar } from "react-chartjs-2";
 import ChartDataLabels from "chartjs-plugin-datalabels";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import brLocale from "date-fns/locale/pt-BR";
@@ -123,11 +123,11 @@ export const ChatsUser = () => {
 
   return (
     <>
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+      {/* <Typography component="h2" variant="h6" color="primary" gutterBottom>
         Total de Conversas por Usuários
       </Typography>
-
-      <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{ my: 2 }}>
+ */}
+      {/* <Stack direction={"row"} spacing={2} alignItems={"center"} sx={{ my: 2 }}>
         <LocalizationProvider
           dateAdapter={AdapterDateFns}
           adapterLocale={brLocale}
@@ -167,8 +167,8 @@ export const ChatsUser = () => {
         >
           Filtrar
         </Button>
-      </Stack>
-      <Doughnut
+      </Stack> */}
+      <Bar
         options={options}
         data={dataCharts}
         style={{ maxWidth: "100%", maxHeight: "280px" }}

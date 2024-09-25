@@ -115,7 +115,7 @@ export const ChartsDate = () => {
 
   return (
     <>
-      <Typography component="h2" variant="h6" color="primary" gutterBottom>
+      {/* <Typography component="h2" variant="h6" color="primary" gutterBottom>
         Total ({ticketsData?.count})
       </Typography>
 
@@ -159,7 +159,7 @@ export const ChartsDate = () => {
         >
           Filtrar
         </Button>
-      </Stack>
+      </Stack> */}
       <Bar
         options={options}
         data={dataCharts}
