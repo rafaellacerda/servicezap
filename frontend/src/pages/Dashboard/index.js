@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     fontWeight: "bolder",
     textTransform: "uppercase",
-    zIndex: 999999,
+    zIndex: 9,
     position: "relative",
   },
   cardSubtitle: {
@@ -658,7 +658,7 @@ const Dashboard = () => {
               className={classes.card4}
               style={{ overflow: "hidden" }}
               elevation={6}
-              onClick={() => history.push("/tasks")}
+              onClick={() => history.push("/todolist")}
             >
               <Grid item xs={8}>
                 <img src={background} className={classes.backgroundCard} />
