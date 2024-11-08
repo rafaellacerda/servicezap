@@ -25,6 +25,7 @@ interface Request {
   tags: number[];
   users: number[];
   companyId: number;
+  withoutLimit: boolean;
 }
 
 interface Response {
@@ -45,7 +46,8 @@ const ListTicketsServiceKanban = async ({
   showAll,
   userId,
   withUnreadMessages,
-  companyId
+  companyId,
+  withoutLimit = false
 }: Request): Promise<Response> => {
   let whereCondition: Filterable["where"] = {
     [Op.or]: [{ userId }, { status: "pending" }],
@@ -78,7 +80,7 @@ const ListTicketsServiceKanban = async ({
       model: Whatsapp,
       as: "whatsapp",
       attributes: ["name"]
-    },
+    }
   ];
 
   if (showAll === "true") {
@@ -205,7 +207,7 @@ const ListTicketsServiceKanban = async ({
     };
   }
 
-  const limit = 40;
+  const limit = withoutLimit ? 1000 : 40;
   const offset = limit * (+pageNumber - 1);
 
   whereCondition = {

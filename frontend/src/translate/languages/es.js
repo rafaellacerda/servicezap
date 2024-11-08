@@ -831,6 +831,10 @@ transferTicketModal: {
       add: "Nueva Etiqueta",
 	  deleteAll: "Eliminar Todas",
     },
+    message: {
+      add: "Enviar a etiqueta",
+      send: "Enviar"
+    },
     toasts: {
 	  deletedAll: "¡Todas las Etiquetas se han eliminado correctamente!",
       deleted: "Etiqueta eliminada correctamente.",

@@ -1,7 +1,11 @@
 import React, { useContext, useState } from "react";
 import { useHistory } from "react-router-dom";
 
-import { makeStyles, createTheme, ThemeProvider } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  createTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
 import { MoreVert, Replay } from "@material-ui/icons";
 
@@ -12,98 +16,160 @@ import ButtonWithSpinner from "../ButtonWithSpinner";
 import toastError from "../../errors/toastError";
 import { AuthContext } from "../../context/Auth/AuthContext";
 import { TicketsContext } from "../../context/Tickets/TicketsContext";
-import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import UndoRoundedIcon from '@material-ui/icons/UndoRounded';
-import Tooltip from '@material-ui/core/Tooltip';
-import { green } from '@material-ui/core/colors';
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import UndoRoundedIcon from "@material-ui/icons/UndoRounded";
+import Tooltip from "@material-ui/core/Tooltip";
+import { green } from "@material-ui/core/colors";
+import ConfirmationModal from '../ConfirmationModal';
 
+import ScheduleModal from "../ScheduleModal";
 
-const useStyles = makeStyles(theme => ({
-	actionButtons: {
-		marginRight: 6,
-		flex: "none",
-		alignSelf: "center",
-		marginLeft: "auto",
-		"& > *": {
-			margin: theme.spacing(0.5),
-		},
-	},
+const useStyles = makeStyles((theme) => ({
+  actionButtons: {
+    marginRight: 6,
+    flex: "none",
+    alignSelf: "center",
+    marginLeft: "auto",
+    "& > *": {
+      margin: theme.spacing(0.5),
+    },
+  },
 }));
 
 const TicketActionButtonsCustom = ({ ticket }) => {
-	const classes = useStyles();
-	const history = useHistory();
-	const [anchorEl, setAnchorEl] = useState(null);
-	const [loading, setLoading] = useState(false);
-	const ticketOptionsMenuOpen = Boolean(anchorEl);
-	const { user } = useContext(AuthContext);
+  const classes = useStyles();
+  const history = useHistory();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const ticketOptionsMenuOpen = Boolean(anchorEl);
+  const { user } = useContext(AuthContext);
 	const { setCurrentTicket } = useContext(TicketsContext);
 
-	const customTheme = createTheme({
-		palette: {
-		  	primary: green,
-		}
-	});
+  const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+  const [showOnDeleteDialog, setShowOnDeleteDialog] = useState(false);
 
-	const handleOpenTicketOptionsMenu = e => {
-		setAnchorEl(e.currentTarget);
-	};
+  const [ticketUpdate, setTicketUpdate] = useState({});
 
-	const handleCloseTicketOptionsMenu = e => {
-		setAnchorEl(null);
-	};
 
-	const handleUpdateTicketStatus = async (e, status, userId) => {
-		setLoading(true);
-		try {
-			await api.put(`/tickets/${ticket.id}`, {
-				status: status,
-				userId: userId || null,
-				useIntegration: status === "closed" ? false : ticket.useIntegration,
-				promptId: status === "closed" ? false : ticket.promptId,
-				integrationId: status === "closed" ? false : ticket.integrationId
-			});
+  const customTheme = createTheme({
+    palette: {
+      primary: green,
+    },
+  });
 
-			setLoading(false);
-			if (status === "open") {
-				setCurrentTicket({ ...ticket, code: "#open" });
-			} else {
-				setCurrentTicket({ id: null, code: null })
-				history.push("/tickets");
-			}
-		} catch (err) {
-			setLoading(false);
-			toastError(err);
-		}
-	};
+  const handleOpenTicketOptionsMenu = (e) => {
+    setAnchorEl(e.currentTarget);
+  };
 
-	return (
-		<div className={classes.actionButtons}>
-			{ticket.status === "closed" && (
-				<ButtonWithSpinner
-					loading={loading}
-					startIcon={<Replay />}
-					size="small"
-					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
-				>
-					{i18n.t("messagesList.header.buttons.reopen")}
-				</ButtonWithSpinner>
-			)}
-			{ticket.status === "open" && (
-				<>
-					<Tooltip title={i18n.t("messagesList.header.buttons.return")}>
-						<IconButton onClick={e => handleUpdateTicketStatus(e, "pending", null)}>
-							<UndoRoundedIcon />
-						</IconButton>
-					</Tooltip>
-					<ThemeProvider theme={customTheme}>
-						<Tooltip title={i18n.t("messagesList.header.buttons.resolve")}>
-							<IconButton onClick={e => handleUpdateTicketStatus(e, "closed", user?.id)} color="primary">
-								<CheckCircleIcon />
-							</IconButton>
-						</Tooltip>
-					</ThemeProvider>
-					{/* <ButtonWithSpinner
+  const handleCloseTicketOptionsMenu = (e) => {
+    setAnchorEl(null);
+  };
+
+  // const handleCloseScheduleModal = () => {
+  //   setScheduleModalOpen(false);
+  // };
+
+  const handleSchedule = async () => {
+    setScheduleModalOpen(true);
+  }
+
+
+  const handleUpdateTicketStatus = async (e, status, userId) => {
+    setLoading(true);
+    
+    try {
+      setTicketUpdate({
+        status: status,
+    		userId: userId || null,
+    		useIntegration: status === "closed" ? false : ticket.useIntegration,
+    		promptId: status === "closed" ? false : ticket.promptId,
+    		integrationId: status === "closed" ? false : ticket.integrationId
+    	});
+
+      setShowOnDeleteDialog(true);
+      // await api.put(`/tickets/${ticket.id}`, {
+      //   status: status,
+    	// 	userId: userId || null,
+    	// 	useIntegration: status === "closed" ? false : ticket.useIntegration,
+    	// 	promptId: status === "closed" ? false : ticket.promptId,
+    	// 	integrationId: status === "closed" ? false : ticket.integrationId
+    	// });
+      
+    	setLoading(false);
+
+    	// if (status === "open") {
+    	// 	setCurrentTicket({ ...ticket, code: "#open" });
+    	// } else {
+    	// 	setCurrentTicket({ id: null, code: null })
+    	// 	history.push("/tickets");
+    	// }
+
+
+    } catch (err) {
+    	setLoading(false);
+    	toastError(err);
+    }
+  };
+
+  const updateTicket = async() => {
+    setLoading(true);
+     await api.put(`/tickets/${ticket.id}`, {
+      ...ticketUpdate
+     });
+      
+    	setLoading(false);
+
+    	if (ticketUpdate.status === "open") {
+        setTicketUpdate({})
+    		setCurrentTicket({ ...ticket, code: "#open" });
+    	} else {
+        setTicketUpdate({})
+        setCurrentTicket({ id: null, code: null })
+    		history.push("/tickets");
+    	}
+  }
+
+  return (
+    <>
+    <ConfirmationModal
+      title="Realizar agendamento:"
+      open={showOnDeleteDialog}
+      onClose={(cancel) => cancel ? updateTicket() : null}
+      onConfirm={handleSchedule}
+    >
+        Deseja realizar um agendamento para esse contato?
+    </ConfirmationModal>
+    <div className={classes.actionButtons}>
+      {ticket.status === "closed" && (
+        <ButtonWithSpinner
+          loading={loading}
+          startIcon={<Replay />}
+          size="small"
+          onClick={(e) => handleUpdateTicketStatus(e, "open", user?.id)}
+        >
+          {i18n.t("messagesList.header.buttons.reopen")}
+        </ButtonWithSpinner>
+      )}
+      {ticket.status === "open" && (
+        <>
+          <Tooltip title={i18n.t("messagesList.header.buttons.return")}>
+            <IconButton
+              onClick={(e) => handleUpdateTicketStatus(e, "pending", null)}
+            >
+              <UndoRoundedIcon />
+            </IconButton>
+          </Tooltip>
+          <ThemeProvider theme={customTheme}>
+            <Tooltip title={i18n.t("messagesList.header.buttons.resolve")}>
+              <IconButton
+                onClick={(e) => handleUpdateTicketStatus(e, "closed", user?.id)}
+                color="primary"
+              >
+                <CheckCircleIcon />
+              </IconButton>
+            </Tooltip>
+          </ThemeProvider>
+          {/* <ButtonWithSpinner
 						loading={loading}
 						startIcon={<Replay />}
 						size="small"
@@ -120,30 +186,37 @@ const TicketActionButtonsCustom = ({ ticket }) => {
 					>
 						{i18n.t("messagesList.header.buttons.resolve")}
 					</ButtonWithSpinner> */}
-					<IconButton onClick={handleOpenTicketOptionsMenu}>
-						<MoreVert />
-					</IconButton>
-					<TicketOptionsMenu
-						ticket={ticket}
-						anchorEl={anchorEl}
-						menuOpen={ticketOptionsMenuOpen}
-						handleClose={handleCloseTicketOptionsMenu}
-					/>
-				</>
-			)}
-			{ticket.status === "pending" && (
-				<ButtonWithSpinner
-					loading={loading}
-					size="small"
-					variant="contained"
-					color="primary"
-					onClick={e => handleUpdateTicketStatus(e, "open", user?.id)}
-				>
-					{i18n.t("messagesList.header.buttons.accept")}
-				</ButtonWithSpinner>
-			)}
-		</div>
-	);
+          <IconButton onClick={handleOpenTicketOptionsMenu}>
+            <MoreVert />
+          </IconButton>
+          <TicketOptionsMenu
+            ticket={ticket}
+            anchorEl={anchorEl}
+            menuOpen={ticketOptionsMenuOpen}
+            handleClose={handleCloseTicketOptionsMenu}
+          />
+        </>
+      )}
+      {ticket.status === "pending" && (
+        <ButtonWithSpinner
+          loading={loading}
+          size="small"
+          variant="contained"
+          color="primary"
+          onClick={(e) => handleUpdateTicketStatus(e, "open", user?.id)}
+        >
+          {i18n.t("messagesList.header.buttons.accept")}
+        </ButtonWithSpinner>
+      )}
+      <ScheduleModal
+        open={scheduleModalOpen}
+        onClose={updateTicket}
+        aria-labelledby="form-dialog-title"
+        contactId={ticket.contact.id}
+      />
+    </div>
+    </>
+  );
 };
 
 export default TicketActionButtonsCustom;

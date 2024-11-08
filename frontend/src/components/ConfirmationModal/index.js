@@ -12,7 +12,7 @@ const ConfirmationModal = ({ title, children, open, onClose, onConfirm }) => {
 	return (
 		<Dialog
 			open={open}
-			onClose={() => onClose(false)}
+			onClose={() => onClose(true)}
 			aria-labelledby="confirm-dialog"
 		>
 			<DialogTitle id="confirm-dialog">{title}</DialogTitle>
@@ -22,7 +22,7 @@ const ConfirmationModal = ({ title, children, open, onClose, onConfirm }) => {
 			<DialogActions>
 				<Button
 					variant="contained"
-					onClick={() => onClose(false)}
+					onClick={() => onClose(true)}
 					color="default"
 				>
 					{i18n.t("confirmationModal.buttons.cancel")}

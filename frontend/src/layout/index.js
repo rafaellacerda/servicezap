@@ -52,16 +52,17 @@ const useStyles = makeStyles((theme) => ({
       height: "calc(100vh - 56px)",
     },
     backgroundColor: theme.palette.fancyBackground,
-    "& .MuiButton-outlinedPrimary": {
-      color: theme.mode === "light" ? "#FFF" : "#FFF",
-      //backgroundColor: theme.mode === 'light' ? '#293A47' : '#293A47',
-      // backgroundColor:
-      //   theme.mode === "light" ? theme.palette.primary.main : "#1c1c1c",
-      backgroundColor: theme.palette.barraSuperior,
-      //border: theme.mode === 'light' ? '1px solid rgba(0 124 102)' : '1px solid rgba(255, 255, 255, 0.5)',
-    },
+    // "& .MuiButton-outlinedPrimary": {
+    //   color: theme.mode === "light" ? "#FFF" : "#FFF",
+    //   //backgroundColor: theme.mode === 'light' ? '#293A47' : '#293A47',
+    //   // backgroundColor:
+    //   //   theme.mode === "light" ? theme.palette.primary.main : "#1c1c1c",
+    //   backgroundColor: theme.palette.barraSuperior,
+    //   //border: theme.mode === 'light' ? '1px solid rgba(0 124 102)' : '1px solid rgba(255, 255, 255, 0.5)',
+    // },
     "& .MuiTab-textColorPrimary.Mui-selected": {
       color: theme.mode === "light" ? "Primary" : "#FFF",
+      background: 'rgba(156, 133, 82, 0.21) !important',
     },
     "& .MuiToolbar-dense": {
       height: "62px",

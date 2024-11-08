@@ -368,6 +368,12 @@ const MainListItems = (props) => {
       />
 
       <ListItemLink
+        to="/users"
+        primary={i18n.t("mainDrawer.listItems.users")}
+        icon={<PeopleAltOutlinedIcon />}
+      />
+
+      <ListItemLink
         to="/queues"
         primary={i18n.t("mainDrawer.listItems.queues")}
         icon={<AccountTreeOutlinedIcon />}
@@ -485,13 +491,13 @@ const MainListItems = (props) => {
               />
             )}
 
-            {user.super && (
+            {/* {user.super && (
               <ListItemLink
                 to="/users"
                 primary={i18n.t("mainDrawer.listItems.users")}
                 icon={<PeopleAltOutlinedIcon />}
               />
-            )}
+            )} */}
 
             {showExternalApi && user.super && (
               <>

@@ -842,6 +842,10 @@ const messages = {
           deletedAll: "Todas Tags excluídas com sucesso!",
           deleted: "Tag excluído com sucesso.",
         },
+        message: {
+          add: "Envio para tag",
+          send: "Enviar"
+        }
       },
       settings: {
         success: "Configurações salvas com sucesso.",
@@ -923,8 +927,8 @@ const messages = {
       },
       confirmationModal: {
         buttons: {
-          confirm: "Ok",
-          cancel: "Cancelar",
+          confirm: "Sim",
+          cancel: "Não",
         },
       },
       messageOptionsMenu: {

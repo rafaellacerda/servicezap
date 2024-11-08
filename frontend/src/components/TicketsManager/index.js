@@ -79,6 +79,10 @@ const useStyles = makeStyles((theme) => ({
     alignSelf: "center",
   },
 
+  newButton: {
+    background: theme.palette.primary.main,
+  },
+
   searchInput: {
     flex: 1,
     border: "none",
@@ -220,7 +224,7 @@ const TicketsManager = () => {
       </Paper>
       <Paper square elevation={0} className={classes.ticketOptionsBox}>
         <Button
-          variant="outlined"
+          variant="contained"
           color="primary"
           onClick={() => setNewTicketModalOpen(true)}
         >

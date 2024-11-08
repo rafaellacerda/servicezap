@@ -5,6 +5,7 @@ import React, {
   useCallback,
   useContext,
 } from "react";
+
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,6 +20,7 @@ import api from "../../services/api";
 import { i18n } from "../../translate/i18n";
 import MainHeaderButtonsWrapper from "../../components/MainHeaderButtonsWrapper";
 import ScheduleModal from "../../components/ScheduleModal";
+import ScheduleXlsModal from "../../components/ScheduleXLSModal";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import toastError from "../../errors/toastError";
 import moment from "moment";
@@ -31,6 +33,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import SearchIcon from "@material-ui/icons/Search";
 import DeleteOutlineIcon from "@material-ui/icons/DeleteOutline";
 import EditIcon from "@material-ui/icons/Edit";
+import DateFnsUtils from "@date-io/date-fns";
 
 import "./Schedules.css"; // Importe o arquivo CSS
 
@@ -108,6 +111,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// aaa
+
+// export default FileInput;
+
 const Schedules = () => {
   const classes = useStyles();
   const history = useHistory();
@@ -123,6 +130,7 @@ const Schedules = () => {
   const [searchParam, setSearchParam] = useState("");
   const [schedules, dispatch] = useReducer(reducer, []);
   const [scheduleModalOpen, setScheduleModalOpen] = useState(false);
+  const [scheduleXlsModalOpen, setScheduleXlsModalOpen] = useState(false);
   const [contactId, setContactId] = useState(+getUrlParam("contactId"));
 
   const fetchSchedules = useCallback(async () => {
@@ -194,9 +202,19 @@ const Schedules = () => {
     setScheduleModalOpen(true);
   };
 
+  const handleOpenScheduleXlsModal = () => {
+    setSelectedSchedule(null);
+    setScheduleXlsModalOpen(true);
+  };
+
   const handleCloseScheduleModal = () => {
     setSelectedSchedule(null);
     setScheduleModalOpen(false);
+  };
+
+  const handleCloseScheduleXlsModal = () => {
+    setSelectedSchedule(null);
+    setScheduleXlsModalOpen(false);
   };
 
   const handleSearch = (event) => {
@@ -265,6 +283,15 @@ const Schedules = () => {
         contactId={contactId}
         cleanContact={cleanContact}
       />
+      <ScheduleXlsModal
+        open={scheduleXlsModalOpen}
+        onClose={handleCloseScheduleXlsModal}
+        reload={fetchSchedules}
+        aria-labelledby="form-dialog-title"
+        scheduleId={selectedSchedule && selectedSchedule.id}
+        contactId={contactId}
+        cleanContact={cleanContact}
+      />
       <MainHeader>
         <Title>
           {i18n.t("schedules.title")} ({schedules.length})
@@ -289,6 +316,13 @@ const Schedules = () => {
             onClick={handleOpenScheduleModal}
           >
             {i18n.t("schedules.buttons.add")}
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleOpenScheduleXlsModal}
+          >
+            {i18n.t("schedules.buttons.add")} xls
           </Button>
         </MainHeaderButtonsWrapper>
       </MainHeader>

@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+import { addHours, getDate } from "date-fns";
+
 import { getIO } from "../libs/socket";
 
 import AppError from "../errors/AppError";
@@ -12,16 +14,21 @@ import Schedule from "../models/Schedule";
 import path from "path";
 import fs from "fs";
 import { head } from "lodash";
+import Contact from "../models/Contact";
+import CreateContactService from "../services/ContactServices/CreateContactService";
 
 type IndexQuery = {
   searchParam?: string;
   contactId?: number | string;
   userId?: number | string;
   pageNumber?: string | number;
+  tags?: string[];
+  queueIds?: string[];
 };
 
 export const index = async (req: Request, res: Response): Promise<Response> => {
-  const { contactId, userId, pageNumber, searchParam } = req.query as IndexQuery;
+  const { contactId, userId, pageNumber, searchParam } =
+    req.query as IndexQuery;
   const { companyId } = req.user;
 
   const { schedules, count, hasMore } = await ListService({
@@ -40,9 +47,43 @@ export const store = async (req: Request, res: Response): Promise<Response> => {
     body,
     sendAt,
     contactId,
-    userId
-  } = req.body;
+    userId,
+
+    listSchedule = []
+  } = req.body as any;
+
   const { companyId } = req.user;
+
+  listSchedule.forEach(async (item, index) => {
+    let newContact;
+
+    newContact = await Contact.findOne({
+      where: { number: `55${item.whatsapp}`, companyId }
+    });
+
+    if (!newContact)
+      newContact = await CreateContactService({
+        name: item.nome,
+        companyId,
+        number: `55${item.whatsapp}`
+      });
+
+    const schedule = await CreateService({
+      body: item.mensagem,
+      sendAt: item.sendAt,
+      contactId: +newContact?.dataValues?.id,
+      companyId,
+      userId
+    });
+
+    const io = getIO();
+    io.to(`company-${companyId}-mainchannel`).emit("schedule", {
+      action: "create",
+      schedule
+    });
+  });
+
+  if (listSchedule.length > 0) return res.status(200).json({ listSchedule });
 
   const schedule = await CreateService({
     body,
@@ -82,7 +123,11 @@ export const update = async (
   const scheduleData = req.body;
   const { companyId } = req.user;
 
-  const schedule = await UpdateService({ scheduleData, id: scheduleId, companyId });
+  const schedule = await UpdateService({
+    scheduleData,
+    id: scheduleId,
+    companyId
+  });
 
   const io = getIO();
   io.to(`company-${companyId}-mainchannel`).emit("schedule", {
@@ -126,8 +171,8 @@ export const mediaUpload = async (
 
     await schedule.save();
     return res.send({ mensagem: "Arquivo Anexado" });
-    } catch (err: any) {
-      throw new AppError(err.message);
+  } catch (err: any) {
+    throw new AppError(err.message);
   }
 };
 
@@ -148,7 +193,7 @@ export const deleteMedia = async (
     schedule.mediaName = null;
     await schedule.save();
     return res.send({ mensagem: "Arquivo Excluído" });
-    } catch (err: any) {
-      throw new AppError(err.message);
+  } catch (err: any) {
+    throw new AppError(err.message);
   }
 };
